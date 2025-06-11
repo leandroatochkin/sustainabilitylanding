@@ -4,7 +4,7 @@ import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useScrollNavigation = () => {
+export const useScrollNavigation = (infoRef) => {
   const [activeSection, setActiveSection] = useState('.home');
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,15 +43,31 @@ export const useScrollNavigation = () => {
 
   // Handle manual navigation
   const handleSectionClick = (section) => {
-  setIsMenuOpen(false);
-  const element = document.querySelector(section);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      ScrollTrigger.refresh(true); // ensure triggers are recalculated after scroll
-    }, 600);
-  }
-};
+    const element = document.querySelector(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+
+      const onScrollEnd = () => {
+        // Trigger info animation if navigating to info section
+        if (section === '.info' && infoRef?.current) {
+          // Add a small delay to ensure scroll is complete
+          setTimeout(() => {
+            infoRef.current.triggerAnimation();
+          }, 100);
+        }
+        window.removeEventListener('scrollend', onScrollEnd);
+      };
+
+      window.addEventListener('scrollend', onScrollEnd);
+      
+      // Fallback for browsers that don't support 'scrollend'
+      setTimeout(() => {
+        if (section === '.info' && infoRef?.current) {
+          infoRef.current.triggerAnimation();
+        }
+      }, 1000); // Adjust timing based on your scroll duration
+    }
+  };
 
   return {
     activeSection,
@@ -63,22 +79,22 @@ export const useScrollNavigation = () => {
 };
 
 export function useMobile() {
-    const [isMobile, setIsMobile] = useState(false)
-  
-    useEffect(() => {
-      const checkIfMobile = () => {
-        setIsMobile(window.innerWidth < 768)
-      }
-  
-      // Check on initial load
-      checkIfMobile()
-  
-      // Add event listener for window resize
-      window.addEventListener("resize", checkIfMobile)
-  
-      // Clean up event listener
-      return () => window.removeEventListener("resize", checkIfMobile)
-    }, [])
-  
-    return isMobile
-  }
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Check on initial load
+    checkIfMobile()
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkIfMobile)
+
+    // Clean up event listener
+    return () => window.removeEventListener("resize", checkIfMobile)
+  }, [])
+
+  return isMobile
+}
