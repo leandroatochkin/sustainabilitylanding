@@ -8,10 +8,10 @@ gsap.registerPlugin(ScrollTrigger);
 const Info = forwardRef((props, ref) => {
   const isMobile = useMobile()
   const benefits = [
-    '🌍 Actionable eco-friendly tips you can apply immediately',
-    '🛒 Product recommendations that align with your values',
-    '💡 Mindful living habits backed by science',
-    '📅 One short email every Sunday — clean and simple'
+    {text: '🌍 Actionable eco-friendly tips you can apply immediately.', link: '/info/ecoTips'},
+    {text: '🛒 Product recommendations that align with your values.', link: '/info/ecoTips'},
+    {text: '💡 Mindful living habits backed by science.', link: '/info/ecoTips'},
+    {text: '📅 One short email every Sunday — clean and simple.', link: '/info/ecoTips'}
   ];
 
   const containerRef = useRef(null)
@@ -71,13 +71,13 @@ const Info = forwardRef((props, ref) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '30%'
+        marginTop: isMobile ? '30%' : 0
       }}
     >
       {benefits.map((benefit, i) => (
         <div className="benefit-container"
           style={{
-            width: isMobile ? '86vw' : 'auto',
+            width: isMobile ? '86vw' : '400px',
             backgroundColor: '#f5f5f5',
             borderRadius: '1rem',
             padding: '1.2rem',
@@ -86,12 +86,15 @@ const Info = forwardRef((props, ref) => {
             height: '100px',
             color: '#333',
             fontSize: '1rem',
-            willChange: 'transform opacity'
+            willChange: 'transform opacity',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
           key={i}
         >
           <p className="benefit">
-            {benefit}
+            {benefit.text} <a href={benefit.link}>See more...</a>
           </p>
         </div>
       ))}

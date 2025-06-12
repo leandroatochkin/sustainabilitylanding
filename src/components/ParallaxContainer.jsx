@@ -5,6 +5,7 @@ import Navbar from './Navbar'; // Adjust import path
 import Info from './Info'; // Adjust import path
 import TitleAndSubtitle from './Title'; // Adjust import path
 import SubscribeCard from './SubscribeCard'; // Adjust import path
+import ErrorBoundary from './ERROR/ErrorBoundary';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,11 +36,13 @@ const ParallaxContainer = () => {
     fontSize: '4rem',
     color: '#f5f5f5',
     position: 'relative',
-    willChange: 'transform'
+    willChange: 'transform',
+   // Safari support
   }
 
   return (
-    <div className="parallax-container"
+    <ErrorBoundary>
+        <div className="parallax-container"
       style={{
         background: 'url(/sustainabilitybg.avif) top center',
         backgroundSize: 'cover',
@@ -56,6 +59,7 @@ const ParallaxContainer = () => {
         <SubscribeCard/>
       </section>
     </div>
+    </ErrorBoundary>
   );
 }
 

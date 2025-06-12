@@ -1,0 +1,17 @@
+---
+// src/layouts/MarkdownLayout.astro
+import './markdown.css';
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main class="markdown-body">
+      <slot />
+    </main>
+  </body>
+</html>

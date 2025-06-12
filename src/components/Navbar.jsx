@@ -8,14 +8,22 @@ const Navbar = ({ infoRef }) => {
 
   return (
     <div
-      style={{
-        width: isMobile ? '86vw' : 'auto',
-        height: '35px',
-        position: 'sticky',
-        top: 10,
-        left: 28,    
+    style={{
+        width: '100vw',
         display: 'flex',
-        zIndex: 999,
+        justifyContent: 'center',
+           position: 'sticky',
+        top: 10,
+        left: 28,
+           zIndex: 999,  
+    }}
+    >
+        <div
+      style={{
+        width: isMobile ? '86vw' : '40vw',
+        height: '35px',
+       
+        display: 'flex',
         fontFamily: 'Inter, sans-serif',
       }}
     >
@@ -75,6 +83,8 @@ const Navbar = ({ infoRef }) => {
       >
         subscribe
       </button>
+    </div>
+
     </div>
   )
 }

@@ -66,7 +66,11 @@ useEffect(() => {
 
 
   return  (
-    <>
+  <div
+  style={{
+    marginTop: isMobile ? '20%' : 0
+  }}
+  >
   <h1 
   className="big-title2"
   style={{
@@ -92,6 +96,6 @@ useEffect(() => {
     textShadow: '0px 3px 10px rgba(0,0,0,0.5)',
   }}
   >Inspiring sustainable living,<br/> <span className='one'>one</span> <span className='tip'>tip</span> at a time.</p>
-    </>
+    </div>
   )
 }
